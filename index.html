@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff6fa5">
+<title>字宝乐园</title>
+<style>
+:root{box-sizing:border-box;--bg:#fff0f6;--bg2:#ffe0ee;--card:#fff;--pink:#ff6fa5;--deep:#d81b60;--soft:#ffd6e7;--text:#5a2a3c;--ok:#8fe0b0;--no:#ffb3b3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1520;--bg2:#241019;--card:#3d1f2e;--soft:#5a2a43;--text:#ffe3ee;--deep:#ff8fb8}}
+:root[data-theme="dark"]{--bg:#2a1520;--bg2:#241019;--card:#3d1f2e;--soft:#5a2a43;--text:#ffe3ee;--deep:#ff8fb8}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;min-height:100%}
+body{background:linear-gradient(160deg,var(--bg),var(--bg2));background-attachment:fixed;color:var(--text);font-family:"KaiTi","STKaiti","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;user-select:none;padding-top:env(safe-area-inset-top,0px)}
+button,select,input{font:inherit;color:inherit;border:0;cursor:pointer}
+#shell{display:grid;grid-template-columns:230px 1fr;min-height:100dvh;width:100%}
+#side{background:var(--card);padding:18px 12px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100dvh;border-right:2px solid var(--soft)}
+.brand{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:700;color:var(--deep);padding:4px 8px 14px}
+.brand svg{width:44px;height:44px;flex:none}
+.nv{display:flex;align-items:center;gap:10px;background:none;border-radius:16px;padding:12px 14px;font-size:20px;text-align:left}
+.nv b{font-size:26px}.nv.on{background:var(--soft);color:var(--deep);font-weight:700}
+#body{display:flex;flex-direction:column;min-width:0}
+#top{display:flex;justify-content:flex-end;align-items:center;gap:10px;padding:12px 22px}
+#top .brand{display:none;margin-right:auto;padding:0;font-size:22px}
+.chipb{background:var(--card);border-radius:50px;padding:8px 16px;font-size:20px;box-shadow:0 3px 0 var(--soft)}
+#main{width:100%;max-width:1180px;margin:0 auto;padding:4px 24px 90px;flex:1}
+#tabbar{display:none}
+h1{font-size:clamp(26px,4vw,38px);margin:0 0 6px;color:var(--deep)}h2{color:var(--deep);margin:18px 0 10px;font-size:26px}h3{margin:6px 0 10px;font-size:22px}
+.hero{display:flex;gap:18px;align-items:center;background:var(--card);border-radius:32px;padding:20px 24px;box-shadow:0 6px 0 var(--soft);margin-bottom:16px}
+.mas{font-size:84px;line-height:1}.hero>div:last-child{flex:1}.hero p{margin:4px 0 10px;font-size:20px}
+.bar{height:14px;background:var(--soft);border-radius:20px;overflow:hidden;flex:1}.bar i{display:block;height:100%;background:var(--pink);border-radius:20px;transition:width .4s}
+.cats,.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.cats{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.tile{background:var(--card);border-radius:26px;padding:18px 8px;font-size:22px;box-shadow:0 6px 0 var(--soft);display:flex;flex-direction:column;align-items:center;gap:2px}
+.tile b{font-size:48px;line-height:1.2}.tile small{font-size:16px;color:var(--deep);min-height:20px}
+.tile:active,.btn:active,.opt:active{transform:translateY(3px)}
+.cat{padding:26px 10px}.cat b{font-size:60px}.cat small{color:var(--text);opacity:.75}
+.scope{display:inline-flex;align-items:center;gap:8px;font-size:20px;margin:6px 0 14px}
+select{background:var(--card);border-radius:50px;padding:8px 14px;font-size:20px;box-shadow:0 3px 0 var(--soft)}
+.big,.qcard,.panel{background:var(--card);border-radius:32px;padding:20px;box-shadow:0 8px 0 var(--soft);margin:10px 0;text-align:center}
+.panel{text-align:left}
+.pic{font-size:88px;line-height:1.1}.py{font-size:30px;color:var(--deep)}.zi{font-size:clamp(90px,16vw,130px);line-height:1.1;font-weight:bold}.zi.s{font-size:44px}.wd{font-size:18px;opacity:.7}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hzbox{width:min(240px,100%);aspect-ratio:1;margin:0 auto;background:repeating-linear-gradient(0deg,transparent 0 calc(50% - 1px),var(--soft) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px)),repeating-linear-gradient(90deg,transparent 0 calc(50% - 1px),var(--soft) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px));border:3px solid var(--pink);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.btn{background:var(--pink);color:#fff;border-radius:50px;padding:12px 26px;font-size:24px;box-shadow:0 5px 0 var(--deep)}
+.btn:disabled{opacity:.6}
+.sp{background:var(--soft);border-radius:50%;width:38px;height:38px;font-size:18px;margin-left:4px;vertical-align:middle;padding:0}
+.sp.lg{width:56px;height:56px;font-size:28px}
+.msg{font-size:clamp(22px,3.4vw,30px);min-height:44px;margin:6px 0;color:var(--deep)}
+.qh{display:flex;align-items:center;gap:12px;margin:6px 0 10px;font-size:20px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:14px}
+.opt{background:var(--card);border-radius:24px;font-size:clamp(44px,8vw,64px);padding:14px 6px;box-shadow:0 6px 0 var(--soft);font-weight:bold;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100px}
+.opt.sm{font-size:28px}.opt i{font-style:normal;font-size:15px;color:var(--deep);font-weight:400;line-height:1.1}
+.opt.good{background:var(--ok)}
+.shake{animation:sk .4s;background:var(--no)}
+@keyframes sk{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mt button{background:var(--card);border-radius:22px;font-size:54px;padding:12px 0;box-shadow:0 5px 0 var(--soft)}
+.mt .sel{outline:5px solid var(--pink)}.mt .ok{background:var(--ok);opacity:.7}.mt .no{background:var(--no)}
+.sent{background:var(--card);border-radius:28px;padding:14px 10px;margin:12px 0;box-shadow:0 6px 0 var(--soft);text-align:center}
+.sent .pic{font-size:52px}.sent.done{background:var(--soft)}
+.line{display:flex;flex-wrap:wrap;justify-content:center;gap:4px}
+.ch{display:flex;flex-direction:column;padding:2px 6px;border-radius:12px;background:none}
+.ch i{font-style:normal;font-size:18px;color:var(--deep)}.ch b{font-size:42px}.pu{font-size:42px;align-self:flex-end}.ch:active{background:var(--soft)}
+.hint{font-size:18px;opacity:.8;margin:8px 0}
+.li{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:20px;padding:12px 16px;margin:8px 0;box-shadow:0 4px 0 var(--soft);font-size:22px}
+.li b{font-size:34px}.li span{flex:1}
+.tabs{display:flex;gap:8px;margin:8px 0}.tabs .on{background:var(--pink);color:#fff}
+.rd{display:block;padding:10px 4px;font-size:22px}.rd input{width:22px;height:22px;margin-right:10px;vertical-align:middle;accent-color:var(--pink)}
+.ov{position:fixed;inset:0;background:rgba(90,42,60,.9);display:flex;align-items:center;justify-content:center;z-index:50;padding:20px}
+.oc{background:var(--card);border-radius:36px;padding:30px;text-align:center;max-width:460px}
+#ts{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--deep);color:#fff;padding:10px 20px;border-radius:30px;font-size:20px;opacity:0;transition:opacity .3s;pointer-events:none;width:max-content;max-width:90%;z-index:60}
+@media (max-width:760px){
+#shell{grid-template-columns:1fr}#side{display:none}#top{padding:10px 14px}#top .brand{display:flex}
+#tabbar{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:2px solid var(--soft);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+#tabbar .nv{flex:1;flex-direction:column;gap:0;font-size:14px;padding:4px 0;text-align:center;align-items:center}#tabbar .nv b{font-size:26px}
+#main{padding:4px 14px 100px}.split{grid-template-columns:1fr}.hero{padding:14px}.mas{font-size:60px}
+.tiles{grid-template-columns:repeat(2,1fr)}.cats{grid-template-columns:1fr 1fr}.cat b{font-size:48px}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+</style></head><body>
+<div id="shell"><aside id="side"><div class="brand" id="bd"></div><div id="sn"></div></aside>
+<div id="body"><header id="top"><div class="brand" id="bd2"></div><div class="chipb" id="st">⭐ 0</div><button class="chipb" onclick="nav('set')" aria-label="设置">⚙️</button></header><main id="main"></main></div></div>
+<nav id="tabbar"></nav><div id="ov" class="ov" hidden></div><div id="ts"></div>
+<script>
+/* ===== 数据：生字表（部编版一年级上册识字表，字+拼音，空格分隔，可直接替换）===== */
+const L=[["识字1-4","天tiān 地dì 人rén 你nǐ 我wǒ 他tā 一yī 二èr 三sān 四sì 五wǔ 上shàng 下xià 口kǒu 耳ěr 目mù 手shǒu 足zú 站zhàn 坐zuò 日rì 月yuè 山shān 川chuān 水shuǐ 火huǒ 田tián 禾hé"],["园地一","六liù 七qī 八bā 九jiǔ 十shí"],["拼音3-4","爸bà 妈mā 大dà 马mǎ 路lù 土tǔ"],["园地二","本běn 学xué 校xiào 班bān 级jí 姓xìng 名míng 王wáng"],["拼音5-9","哥gē 弟dì 画huà 花huā 打dǎ 棋qí 积jī 木mù 字zì 词cí 句jù 子zǐ 桌zhuō 纸zhǐ 读dú 书shū 鱼yú 鸭yā 乌wū 鸦yā"],["园地三","午wǔ 星xīng 期qī 语yǔ 文wén 数shù 写xiě 会huì"],["拼音10-14","白bái 菜cài 西xī 瓜guā 果guǒ 小xiǎo 桥qiáo 流liú 柳liǔ 开kāi 雪xuě 夜yè 色sè 美měi 蓝lán 云yún 草cǎo 原yuán 冰bīng 自zì 行xíng 车chē"],["园地四","晚wǎn 昨zuó 今jīn 明míng 个gè 这zhè 去qù 年nián"],["阅读1-4","秋qiū 气qì 了le 树shù 叶yè 黄huáng 片piàn 从cóng 来lái 飞fēi 江jiāng 南nán 可kě 采cǎi 莲lián 戏xì 间jiān 东dōng 北běi 的de 家jiā 鸡jī 竹zhú 牙yá 用yòng 几jǐ 步bù 没méi 参cān 加jiā 鸟niǎo 说shuō 是shì 春chūn 青qīng 蛙wā 夏xià 着zhe 皮pí 地de 就jiù 冬dōng"],["园地五","男nán 女nǚ 关guān 正zhèng 反fǎn 先xiān 后hòu 内nèi 外wài"],["识字5-8","对duì 歌gē 雨yǔ 风fēng 虫chóng 清qīng 绿lǜ 桃táo 红hóng 力lì 尖jiān 尘chén 众zhòng 双shuāng 林lín 森sēn 不bù 条tiáo 心xīn 金jīn 包bāo 尺chǐ 作zuò 业yè 笔bǐ 刀dāo 宝bǎo 贝bèi 少shǎo 课kè 早zǎo 升shēng 国guó 旗qí 中zhōng 们men 声shēng 起qǐ 多duō 么me 向xiàng 立lì"],["园地六","老lǎo 师shī 工gōng 厂chǎng 医yī 院yuàn 生shēng 门mén 卫wèi"],["阅读5-7","船chuán 弯wān 儿ér 两liǎng 头tóu 在zài 里lǐ 看kàn 见jiàn 闪shǎn 影yǐng 前qián 常cháng 黑hēi 狗gǒu 左zuǒ 右yòu 它tā 好hǎo 朋péng 友yǒu 件jiàn 有yǒu 和hé 做zuò 也yě 办bàn 到dào 又yòu 才cái 能néng"],["园地七","爷yé 奶nǎi 叔shū 姐jiě 妹mèi"],["阅读8-10","比bǐ 尾wěi 巴bā 谁shuí 长cháng 短duǎn 把bǎ 伞sǎn 兔tù 最zuì 公gōng 喝hē 只zhī 处chù 找zhǎo 着zháo 许xǔ 石shí 出chū 法fǎ 放fàng 进jìn 高gāo 点diǎn 彩cǎi 半bàn 空kōng 问wèn 回huí 答dá 方fāng 久jiǔ 更gèng 长zhǎng"],["园地八","牛niú 羊yáng 爪zhuǎ 元yuán 拼pīn 音yīn"]];
+/* 写字表（会写的100字）*/
+const W=new Set([..."一二三上口耳目手日火田禾六七八十九王午下个去了子大人可叶东西竹马牙用几四小鸟是天女开关先云雨虫山水力男土木心尺本刀不少中五风立正工厂门卫月儿头里见在我左右和也又才爸妈比巴长公只多办石出来半你有牛羊爪白"]);
+/* 图片(emoji) */
+const E={};"日☀️ 月🌙 水💧 火🔥 山⛰️ 木🌳 花🌸 鸟🐦 鱼🐟 马🐴 牛🐮 羊🐑 手✋ 口👄 耳👂 目👁️ 足🦶 雨🌧️ 云☁️ 星⭐ 心❤️ 门🚪 田🌾 虫🐛 风🍃 雪❄️ 桥🌉 草🌱 车🚗 鸭🦆 鸡🐔 狗🐶 兔🐰 伞☂️ 书📖 瓜🍉 果🍎 菜🥬 竹🎋 桃🍑 船⛵ 蛙🐸 冰🧊 夜🌃 石🪨 树🌲 叶🍃 国🇨🇳 旗🚩 家🏠 路🛣️ 红🔴 绿🟢 黄🟡 黑⚫ 白⚪ 女👧 男👦 爷👴 奶👵 爸👨 妈👩 春🌷 夏🌞 秋🍂 冬⛄ 笔🖊️ 医🏥 蓝🔵".split(' ').forEach(t=>E[t[0]]=t.slice(1));
+/* 笔画数 */
+const SK={};"日4 月4 山3 水4 火4 田5 禾5 口3 耳6 目5 手4 人2 大3 上3 下3 土3 木4 一1 二2 三3 四5 五4 六4 七2 八2 九2 十2 心4 女3 子3 小3 中4 天4 王4 力2 刀2 不4 云4 雨8 虫6 风4 门3 工3 开4 牛4 羊6".split(' ').forEach(t=>SK[t[0]]=+t.slice(1));
+/* 找不同类 */
+const C={动物:"鸟鱼虫马牛羊鸡鸭狗兔蛙",天气:"云雨风雪",身体:"口耳目手足心",人称:"你我他"};
+/* 连词成句（/分词）*/
+const SS=["这/是/我的/尺子","我/有/一/本/书","他/是/我的/好/朋友","小鸟/在/天上/飞","我/有/一/双/小手","鱼/在/水/里","我们/是/中国人","天上/有/白云","花儿/开/了","小鸟/在/树/上","我/有/一个/好/朋友","山/下/有/水"];
+/* 儿歌/古诗：每行 [图, "字拼音 字拼音 ， ..."] */
+const R=[["🌞","太tài 阳yáng 出chū 来lái 了le"],["🐟","小xiǎo 鱼yú 游yóu 水shuǐ 里lǐ"],["🐦","小xiǎo 鸟niǎo 飞fēi 上shàng 山shān"],["🌸","花huā 儿ér 开kāi 了le"],["✋","我wǒ 有yǒu 一yī 双shuāng 小xiǎo 手shǒu"],["🦢","鹅é 鹅é 鹅é ， 曲qū 项xiàng 向xiàng 天tiān 歌gē 。"],["🦢","白bái 毛máo 浮fú 绿lǜ 水shuǐ ， 红hóng 掌zhǎng 拨bō 清qīng 波bō 。"],["🐜","小xiǎo 蚂mǎ 蚁yǐ ， 搬bān 虫chóng 虫chóng 。"],["🐜","一yí 个gè 搬bān ， 搬bān 不bù 动dòng 。"],["🐜","两liǎng 个gè 搬bān ， 掀xiān 条tiáo 缝fèng 。"],["🐜","三sān 个gè 搬bān ， 动dòng 一yī 动dòng 。"],["🐜","四sì 个gè 五wǔ 个gè 六liù 七qī 个gè ， 大dà 家jiā 一yì 起qǐ 搬bān 进jìn 洞dòng 。"]];
+
+
+/* ===== 补充数据 ===== */
+const FB=[["我们都是中国_","人","天"],["_空中，有飞机飞过","天","人"],["我们要讲卫生，手不要放入_中","口","田"],["禾苗长在水_里","田","口"],["我有一双小_","手","耳"],["花儿_了","开","关"],["太阳出_了","来","去"],["小鸟在_上飞","天","地"]];
+const PL=[["人","加","大","口","手"],["木","加","禾","山","水"],["日","加","目","火","口"],["田","减","日","水","耳"],["禾","减","木","手","人"],["三","减","二","火","水"]];
+const RC=[["《咏鹅》写的是什么动物？","鹅","鸭","鸡"],["「红掌拨清波」，红色的是鹅的什么？","脚掌","嘴巴","羽毛"],["「白毛浮绿水」，白色的是鹅的什么？","羽毛","脚掌","嘴巴"],["小蚂蚁们在做什么？","搬虫虫","吃饭","睡觉"],["最后，大家一起把虫虫搬进了哪里？","洞","河","树"]];
+const PROMPTS=["听一听，是哪个字？","图上画的是哪个字？","选一选，填一填","哪一句话通顺？","哪一个和别的不是一类？","这个字是数字几？","点一句，我来读","给字宝宝找图片","你好，欢迎来到字宝乐园。声音测试成功！","大脑说累了，眼睛也需要放松啦，休息一会儿吧！","今天的学习时间到啦，明天再见！","一共有几画？"];
+const NUM="一二三四五六七八九十",RULES=[["先横后竖","十"],["先撇后捺","人"],["从上到下","三"],["从左到右","川"],["先中间后两边","小"],["先外后内，再封口","日"],["先进门，后关门","国"]];
+const HELLO=["今天也一起学汉字吧～","认识一个新字，就多一个小伙伴！","每天进步一点点，你真棒！","来闯关吧，小花朵在等你～"],YES=["太棒啦！🌟","你真聪明！👏","答对啦，继续加油！","小学霸就是你！","超厉害！🎉"],NO=["没关系，我们记住它！","差一点点，下次一定行！","错误是进步的小台阶～"];
+const NAME='字宝乐园',ICON=`<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect width="64" height="64" rx="16" fill="#ff6fa5"/><g fill="#ffd6e7">${[0,72,144,216,288].map(a=>`<ellipse cx="32" cy="14" rx="8.5" ry="11" transform="rotate(${a} 32 34)"/>`).join('')}</g><circle cx="32" cy="34" r="15" fill="#fff"/><text x="32" y="41" font-size="20" text-anchor="middle" fill="#d81b60" font-weight="700" font-family="KaiTi,STKaiti,serif">字</text></svg>`;
+/* ===== 基础 ===== */
+const $=s=>document.querySelector(s),sh=a=>[...a].sort(()=>Math.random()-.5),rnd=a=>a[Math.floor(Math.random()*a.length)];
+const ALL=[],seen=new Set(),PY={},byC={};
+L.forEach(([l,s])=>s.split(' ').forEach(t=>{const c=t[0],p=t.slice(1);if(!seen.has(c+p)){seen.add(c+p);ALL.push({c,p,l});if(!PY[c]){PY[c]=p;byC[c]=ALL[ALL.length-1]}}}));
+"动dòng 物wù 身shēn 体tǐ 称chēng 搬bān 脚jiǎo 掌zhǎng 嘴zuǐ 羽yǔ 毛máo 鹅é 吃chī 饭fàn 睡shuì 觉jiào 洞dòng 河hé 咏yǒng 蚂mǎ 蚁yǐ 数shù".split(' ').forEach(t=>{if(!PY[t[0]])PY[t[0]]=t.slice(1)});
+const py=w=>[...w].map(c=>PY[c]||'').join('');
+let D;try{D=JSON.parse(localStorage.getItem('xz_v3'))}catch(e){}
+D=Object.assign({stars:0,log:{},wrong:{},lv:{},seen:{},use:{},ext:{},cfg:{}},D||{});
+D.cfg=Object.assign({tts:'auto',limit:0,remind:20,pin:''},D.cfg);
+if(!D.stars){try{D.stars=+localStorage.getItem('zs')||0}catch(e){}}
+const save=()=>{try{localStorage.setItem('xz_v3',JSON.stringify(D))}catch(e){}};
+const day=()=>new Date().toLocaleDateString('sv');
+let sc='all',tab='home',T=[],S,CM,pOpen=0,sumP='day';
+const pool=()=>sc=='all'?ALL:sc=='w'?ALL.filter(d=>W.has(d.c)):ALL.filter(d=>d.l==sc);
+const V=f=>{T=[];$('#main').innerHTML=f()};
+const toast=s=>{const e=$('#ts');e.textContent=s;e.style.opacity=1;clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.opacity=0,3200)};
+const refSt=()=>$('#st').textContent='⭐ '+D.stars;
+function sp(t,lg){T.push(t);return `<button class="sp ${lg?'lg':''}" onclick="say(T[${T.length-1}])" aria-label="朗读">🔊</button><button class="sp ${lg?'lg':''}" onclick="stopAll()" aria-label="静音">🔇</button>`}
+/* ===== 朗读：苹果=自带优先；其他=离线整句→在线逐词→自带 ===== */
+let tok=0,A=null;
+const isIOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const hash=t=>{let h=5381;for(const c of t)h=((h*33)^c.codePointAt(0))>>>0;return h.toString(36)};
+function stopAll(){tok++;try{speechSynthesis.cancel()}catch(e){}if(A){try{A.pause()}catch(e){}A=null}}
+const zhV=()=>{try{return speechSynthesis.getVoices().find(v=>/zh|cmn/i.test(v.lang))}catch(e){}};
+const ST={
+offline:t=>new Promise(r=>{const a=new Audio('audio/'+hash(t)+'.mp3');A=a;let f=0;const e=o=>{if(!f++)r(o)};a.onplaying=()=>e(1);a.onerror=()=>e(0);a.play().catch(()=>e(0))}),
+system:t=>new Promise(r=>{try{const v=zhV();if(!v&&!isIOS)return r(0);const u=new SpeechSynthesisUtterance(t);if(v)u.voice=v;u.lang=v?v.lang:'zh-CN';u.rate=.8;let f=0;u.onstart=()=>{if(!f++)r(1)};u.onerror=()=>{if(!f++)r(0)};speechSynthesis.speak(u);setTimeout(()=>{if(!f++)r(1)},1500)}catch(e){r(0)}}),
+online:(t,my)=>new Promise(r=>{const c=t.replace(/[，。？！、「」《》\s]/g,''),u=c.length<=4?[c]:c.length<=14?[...c]:t.split(/[，。？！、]/).filter(Boolean);let i=0,first=1;
+const nx=()=>{if(my!=tok||i>=u.length)return;const a=new Audio('https://dict.youdao.com/dictvoice?audio='+encodeURIComponent(u[i++])+'&le=zh');A=a;let f=0;const bad=()=>{if(f++)return;if(first){first=0;r(0)}else nx()};a.onerror=bad;a.onended=()=>{if(!f++)nx()};a.onplaying=()=>{if(first){first=0;r(1)}};a.play().catch(bad)};nx()})};
+async function say(t){stopAll();const my=tok,m=D.cfg.tts;
+const ch=m=='system'?['system']:m=='online'?['online','system']:m=='offline'?['offline','online','system']:(isIOS?['system','offline','online']:['offline','online','system']);
+for(const s of ch){if(my!=tok)return;if(await ST[s](t,my))return}toast('没有声音？请检查音量/静音/网络，或在设置里换一种朗读方式')}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAll()});
+/* ===== 记录 ===== */
+function rec(m,ok,k,book=1){const d=day(),l=D.log[d]=D.log[d]||{},x=l[m]=l[m]||[0,0];x[0]++;x[1]+=ok?1:0;
+if(k&&k.length==1)D.seen[k]=1;
+if(book&&k){const key=m+'|'+k;if(!ok){const w=D.wrong[key]=D.wrong[key]||{m,t:k,cnt:0,ok:0};w.cnt++;w.ok=0}else if(D.wrong[key]&&++D.wrong[key].ok>=2)delete D.wrong[key]}save()}
+/* ===== 题目生成器（每个返回统一题目对象，可按目标 t 重新生成，用于错题复练）===== */
+const dis=(d,n=2)=>sh(ALL.filter(x=>x.c!=d.c&&byC[x.c]===x)).slice(0,n);
+const lvP=f=>{const lv=D.lv[CM]||0;let X=pool().slice(0,Math.min(pool().length,12+8*lv));if(f)X=X.filter(f);return X.length>=3?X:ALL.filter(f||(()=>1))};
+const hasE=d=>E[d.c],hasS=d=>SK[d.c],CAT=Object.values(C).join('');
+const nums=(n,k=3)=>{let o=[n];while(o.length<k){const v=n+rnd([-2,-1,1,2]);if(v>0&&v<=10&&!o.includes(v))o.push(v)}return sh(o)};
+const G={
+listen:t=>{const d=t?byC[t]:rnd(lvP()),o=sh([d,...dis(d)]);return{t:PROMPTS[0],say:d.c,auto:1,o:o.map(x=>x.c),a:o.indexOf(d),k:d.c}},
+pic:t=>{const d=t?byC[t]:rnd(lvP(hasE)),o=sh([d,...dis(d)]);return{t:PROMPTS[1],big:`<div class="pic">${E[d.c]}</div>`,say:d.c,hide:1,o:o.map(x=>x.c),a:o.indexOf(d),k:d.c}},
+fill:t=>{const f=t?FB.find(x=>x[0]==t):rnd(FB),o=sh([f[1],f[2],rnd(ALL.filter(d=>d.c!=f[1]&&d.c!=f[2])).c]);return{t:PROMPTS[2],big:`<div class="zi s">${f[0].replace('_','<u>　　</u>')}</div>`,say:f[0].replace('_','，'),after:f[0].replace('_',f[1]),o,a:o.indexOf(f[1]),k:f[0]}},
+stroke:t=>{const d=t?byC[t]:rnd(lvP(hasS)),n=SK[d.c],o=nums(n);return{t:PROMPTS[11],big:`<div class="py">${d.p}</div><div class="zi">${d.c}</div>`,say:d.c,hide:1,o:o.map(v=>v+'画'),a:o.indexOf(n),k:d.c}},
+sclass:t=>{const d=t?byC[t]:rnd(lvP(hasS)),n=SK[d.c],o=sh([d,...sh(ALL.filter(x=>SK[x.c]&&SK[x.c]!=n&&byC[x.c]===x)).slice(0,2)]);return{t:`哪个字是 ${n} 画？`,say:d.c,hide:1,o:o.map(x=>x.c),a:o.indexOf(d),k:d.c}},
+plus:t=>{const p=t?PL.find(x=>x[0]+x[1]==t):rnd(PL),o=sh([p[2],p[3],p[4]]);return{t:`「${p[0]}」${p[1]}一笔，变成哪个字？`,big:`<div class="zi">${p[0]}</div>`,say:p[2],hide:1,o,a:o.indexOf(p[2]),k:p[0]+p[1]}},
+sent:t=>{const s=t||rnd(SS),w=s.split('/'),c=w.join('');let bad=[],n=0;while(bad.length<2&&n++<30){const x=sh(w).join('');if(x!=c&&!bad.includes(x))bad.push(x)}const o=sh([c,...bad]);return{t:PROMPTS[3],big:`<div class="line">${sh(w).map(x=>`<span class="ch"><i>${py(x)}</i><b>${x}</b></span>`).join('')}</div>`,say:c,opy:1,o,a:o.indexOf(c),k:s}},
+odd:t=>{const K=Object.keys(C);let a,b,y;if(t){y=t;b=K.find(k=>C[k].includes(t));a=rnd(K.filter(k=>k!=b))}else{a=rnd(K);b=rnd(K.filter(k=>k!=a));y=rnd([...C[b]])}const o=sh([...sh([...C[a]]).slice(0,3),y]);return{t:PROMPTS[4],o,a:o.indexOf(y),k:y,fb:`其他都是「${a}」`,say:y,hide:1}},
+cat:t=>{const c=t||rnd([...CAT]),K=Object.keys(C),k=K.find(x=>C[x].includes(c));return{t:`「${c}」是哪一类？`,big:`<div class="zi">${c}</div>`,say:c,hide:1,opy:1,o:K,a:K.indexOf(k),k:c}},
+num:t=>{const c=t||rnd([...NUM]),i=NUM.indexOf(c)+1;if(Math.random()<.5){const o=nums(i);return{t:PROMPTS[5],big:`<div class="zi">${c}</div>`,say:c,o:o.map(String),a:o.indexOf(i),k:c}}const o=sh([c,...sh([...NUM].filter(x=>x!=c)).slice(0,2)]);return{t:`数字「${i}」是哪个字？`,big:`<div class="zi">${i}</div>`,say:c,hide:1,o,a:o.indexOf(c),k:c}},
+count:t=>{const n=t?NUM.indexOf(t)+1:2+Math.floor(Math.random()*9),e=rnd(['🐱','🌸','⭐','🍎','🐟','🎈']),o=nums(n).map(v=>NUM[v-1]);return{t:'数一数，一共有几个？',big:`<div class="pic" style="font-size:48px">${e.repeat(n)}</div>`,say:NUM[n-1],hide:1,o,a:o.indexOf(NUM[n-1]),k:NUM[n-1]}},
+rc:t=>{const r=t?RC.find(x=>x[0]==t):rnd(RC),o=sh([r[1],r[2],r[3]]);return{t:r[0],say:r[0],hide:1,opy:1,o,a:o.indexOf(r[1]),k:r[0]}}};
+/* ===== 闯关答题引擎 ===== */
+function play(m,list){S={m,n:0,c:0,list:list||null,T:list?list.length:5};if(m!='review')D.last=m;nextQ()}
+function nextQ(){if(S.n>=S.T)return endS();const it=S.list?S.list[S.n]:null;CM=it?it.m:S.m;S.q=G[CM](it&&it.t);S.cm=CM;S.n++;S.lock=0;rq()}
+function rq(){const q=S.q,lg=q.o.some(x=>x.length>2);V(()=>`<div class="qh"><button class="chipb" onclick="stopAll();nav('practice')">⬅ 退出</button><div class="bar"><i style="width:${(S.n-1)/S.T*100}%"></i></div><span>${S.n}/${S.T}</span></div>
+<div class="qcard"><div class="msg">${q.t} ${sp(q.t)}</div>${q.big||''}${q.say&&!q.hide?`<div class="row"><span>${sp(q.say,1)}</span></div>`:''}</div><div id="fb" class="msg"></div>
+<div class="opts">${q.o.map((l,i)=>`<button class="opt ${lg?'sm':''}" onclick="ans(${i})">${q.opy?`<i>${py(l)}</i>`:''}${l}</button>`).join('')}</div>`);
+if(q.auto)setTimeout(()=>say(q.say),250)}
+function ans(i){if(S.lock)return;S.lock=1;const q=S.q,ok=i==q.a,b=[...document.querySelectorAll('.opt')];b[q.a].classList.add('good');if(!ok)b[i].classList.add('shake');
+rec(S.cm,ok,q.k);if(ok)S.c++;$('#fb').textContent=(ok?rnd(YES):rnd(NO))+(q.fb?' '+q.fb:'');
+const s=q.after||q.say;if(s)say(s);setTimeout(nextQ,ok?1500:2400)}
+const PR=["没关系，错误是进步的小台阶，我们再试一次吧！","完成啦！再练一次会更棒哦～","真棒！离满分只差一点点～","太厉害啦！三颗星全拿到！"];
+function endS(){const c=S.c,t=S.T,st=c>=t?3:c>=t-1?2:c>=Math.ceil(t/2)?1:0;D.stars+=st;let up='';
+if(!S.list&&c>=t-1){D.lv[S.m]=(D.lv[S.m]||0)+1;up=`<p>🎊 闯关成功！进入第 ${D.lv[S.m]+1} 关</p>`}save();refSt();
+V(()=>`<div class="qcard"><div class="pic">${['🌱','🌼','🌸','🌟'][st]}</div><h2>${PR[st]}</h2><div class="pic">${'⭐'.repeat(st)||'🤗'}</div><p>答对 ${c}/${t} 题</p>${up}<div class="row"><button class="btn" onclick="S.list?go('review'):play(S.m)">再来一关</button><button class="btn" onclick="nav('practice')">回目录</button></div></div>`)}
+/* ===== 页面 ===== */
+const MD={card:['🃏','字卡·笔顺'],rules:['✍️','笔顺规则'],read:['🎶','儿歌古诗'],listen:['👂','听音选字'],pic:['🖼️','看图选字'],match:['🧩','字宝宝配对'],fill:['📝','选字填空'],stroke:['🔢','数笔画'],sclass:['🗂️','笔画分类'],plus:['✨','加减一笔'],sent:['🧱','连词成句'],odd:['🔍','找不同类'],cat:['🐾','汉字归类'],num:['🔟','数字连线'],count:['🍎','数一数'],rc:['💬','读后回答'],wrong:['📕','错题本'],review:['🔁','复习'],sum:['🏅','学习总结']};
+const NAV=[['home','🏠','首页'],['learn','🌱','学一学'],['practice','🎯','练一练'],['read','📖','读一读'],['me','🧸','我的']];
+const PG=[['识字',['listen','pic','match','fill']],['笔画笔顺',['stroke','sclass','plus']],['词语句子',['sent','odd','cat']],['数字',['num','count']],['阅读理解',['rc']]];
+const badge=m=>m=='wrong'?Object.keys(D.wrong).length+' 题':(G[m]||m=='match')?`第${(D.lv[m]||0)+1}关`:'';
+const tile=m=>`<button class="tile" onclick="go('${m}')"><b>${MD[m][0]}</b>${MD[m][1]}<small>${badge(m)}</small></button>`;
+const scopeSel=()=>`<label class="scope">📚 学习范围 <select onchange="sc=this.value">${[['all','全部识字表'],['w','会写的100字'],...L.map(g=>[g[0],g[0]])].map(([v,l])=>`<option value="${v}" ${v==sc?'selected':''}>${l}</option>`).join('')}</select></label>`;
+function drawNav(){const h=NAV.map(n=>`<button class="nv ${n[0]==tab?'on':''}" onclick="nav('${n[0]}')"><b>${n[1]}</b>${n[2]}</button>`).join('');$('#sn').innerHTML=h;$('#tabbar').innerHTML=h}
+function nav(t){stopAll();tab=t;drawNav();({home:homeV,learn:learnV,practice:practiceV,read:readTabV,me:meV,set:setV})[t]();window.scrollTo(0,0)}
+const SPm={card:()=>cardV(0),rules:rulesV,read:readV,match:matchV,wrong:wrongV,review:reviewStart,sum:sumV};
+function go(m){stopAll();(SPm[m]||(()=>play(m)))()}
+function homeV(){const td=D.log[day()]||{};let n=0,c=0;Object.values(td).forEach(v=>{n+=v[0];c+=v[1]});const h=rnd(HELLO);
+V(()=>`<div class="hero"><div class="mas">🐰</div><div><h1>你好呀，小朋友！</h1><p>${h} ${sp(h)}</p><div style="display:flex;align-items:center;gap:10px"><div class="bar"><i style="width:${Math.min(100,n*5)}%"></i></div><b>${n}/20</b></div><small>今日闯关 · 答对 ${c} 题</small></div></div>
+${scopeSel()} <button class="btn" style="font-size:20px;padding:8px 20px" onclick="go(D.last||'listen')">🚀 继续闯关</button>
+<div class="cats" style="margin-top:12px">${[['learn','🌱','学一学','认字·看笔顺'],['practice','🎯','练一练','闯关小游戏'],['read','📖','读一读','儿歌和古诗'],['me','🧸','我的','错题·复习·总结']].map(x=>`<button class="tile cat" onclick="nav('${x[0]}')"><b>${x[1]}</b>${x[2]}<small>${x[3]}</small></button>`).join('')}</div>`)}
+const learnV=()=>V(()=>`<h2>🌱 学一学</h2>${scopeSel()}<div class="tiles">${tile('card')}${tile('rules')}</div>`);
+const practiceV=()=>V(()=>`<h2>🎯 练一练</h2>${scopeSel()}${PG.map(([n,ms])=>`<h3>${n}</h3><div class="tiles">${ms.map(tile).join('')}</div>`).join('')}`);
+const readTabV=()=>V(()=>`<h2>📖 读一读</h2><div class="tiles">${tile('read')}${tile('rc')}</div>`);
+const meV=()=>V(()=>`<h2>🧸 我的</h2><div class="tiles">${tile('wrong')}${tile('review')}${tile('sum')}<button class="tile" onclick="nav('set')"><b>⚙️</b>设置<small>朗读·家长</small></button></div>`);
+/* 字卡 + 笔顺动画（Hanzi Writer，需联网） */
+let HZL;const hzLoad=()=>HZL||(HZL=new Promise((r,j)=>{if(window.HanziWriter)return r();const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/hanzi-writer@3.5.0/dist/hanzi-writer.min.js';s.onload=r;s.onerror=()=>{HZL=null;j()};document.head.appendChild(s)}));
+async function hz(id,ch,quiz){const el=$('#'+id);if(!el)return;el.innerHTML='加载笔顺…';try{await hzLoad();el.innerHTML='';const w=HanziWriter.create(el,ch,{width:el.clientWidth-6,height:el.clientWidth-6,padding:10,strokeColor:'#d81b60',outlineColor:'#ffd6e7',radicalColor:'#ff6fa5',strokeAnimationSpeed:1,delayBetweenStrokes:350});quiz?w.quiz():w.animateCharacter()}catch(e){el.textContent='笔顺动画需要联网'}}
+function cardV(i){const P=pool(),d=P[i];D.seen[d.c]=1;save();
+V(()=>`<div class="qh"><button class="chipb" onclick="stopAll();nav('learn')">⬅ 返回</button><span>${d.l} · ${i+1}/${P.length}</span></div><div class="split"><div class="big"><div class="pic">${E[d.c]||''}</div><div class="py">${d.p}</div><div class="zi">${d.c}</div><div class="row"><span>${sp(d.c,1)}</span></div></div>
+<div class="big"><div class="msg">笔顺动画</div><div id="hzb" class="hzbox"></div><div class="row"><button class="btn" style="font-size:20px" onclick="hz('hzb','${d.c}')">▶ 重播</button><button class="btn" style="font-size:20px" onclick="hz('hzb','${d.c}',1)">✍️ 描一描</button></div><p class="hint">先横后竖 · 先撇后捺 · 从上到下 · 从左到右 · 先外后内再封口</p></div></div>
+<div class="row"><button class="btn" onclick="cardV(${(i+P.length-1)%P.length})">⬅ 上一个</button><button class="btn" onclick="cardV(${(i+1)%P.length})">下一个 ➡</button></div>`);say(d.c);hz('hzb',d.c)}
+function rulesV(){V(()=>`<div class="qh"><button class="chipb" onclick="nav('learn')">⬅ 返回</button></div><h2>✍️ 笔顺规则</h2><div class="tiles" style="grid-template-columns:repeat(auto-fill,minmax(250px,1fr))">${RULES.map((r,i)=>`<div class="big"><div class="msg">${r[0]} ${sp(r[0])}</div><div id="r${i}" class="hzbox" onclick="hz('r${i}','${r[1]}')">点我</div></div>`).join('')}</div>`);RULES.forEach((r,i)=>setTimeout(()=>hz('r'+i,r[1]),i*500))}
+/* 配对 */
+function matchV(){CM='match';let P=pool().filter(d=>E[d.c]);if(P.length<4)P=ALL.filter(d=>E[d.c]);const p=sh(P).slice(0,4);let a=null,n=0,mis=0;
+V(()=>`<div class="qh"><button class="chipb" onclick="nav('practice')">⬅ 退出</button></div><div class="msg">给字宝宝找图片 ${sp(PROMPTS[7])}</div><div class="mt" id="mt"></div><div id="fb" class="msg"></div>`);const g=$('#mt');
+const Lf=sh(p).map(d=>[d.c,'z',d.c]),Rt=sh(p).map(d=>[d.c,'p',E[d.c]]);
+for(let k=0;k<4;k++)for(const [i,s,t] of [Lf[k],Rt[k]]){const b=document.createElement('button');b.textContent=t;
+b.onclick=()=>{if(b.classList.contains('ok'))return;if(s==='z')say(i);
+if(!a){a=b;b.dataset.k=i;b.dataset.s=s;b.classList.add('sel');return}
+if(a.dataset.s===s){a.classList.remove('sel');a=b;b.dataset.k=i;b.dataset.s=s;b.classList.add('sel');return}
+if(a.dataset.k==i){rec('match',1,i,0);a.classList.remove('sel');a.classList.add('ok');b.classList.add('ok');a=null;if(++n===4){const st=mis==0?3:mis<3?2:1;D.stars+=st;if(mis<2)D.lv.match=(D.lv.match||0)+1;save();refSt();$('#fb').textContent=rnd(YES)+' +'+st+'⭐';setTimeout(matchV,1800)}}
+else{mis++;rec('match',0,i,0);a.classList.remove('sel');b.classList.add('no');setTimeout(()=>b.classList.remove('no'),400);a=null}};g.appendChild(b)}}
+/* 儿歌古诗 */
+function readV(){V(()=>`<div class="qh"><button class="chipb" onclick="nav('read')">⬅ 返回</button></div><div class="msg">点一句，我来读 ${sp(PROMPTS[6])}</div>`+R.map((r,k)=>`<div class="sent" onclick="rl(${k},this)"><div class="pic">${r[0]}</div><div class="line">${r[1].split(' ').map(t=>/[，。]/.test(t)?`<span class="pu">${t}</span>`:`<span class="ch" onclick="event.stopPropagation();say('${t[0]}')"><i>${t.slice(1)}</i><b>${t[0]}</b></span>`).join('')}</div></div>`).join('')+`<div class="hint">点一个字，也能听它的读音</div>`)}
+function rl(k,el){say(R[k][1].split(' ').map(t=>t[0]).join(''));if(!el.classList.contains('done')){el.classList.add('done');D.stars++;save();refSt()}}
+/* 错题本 / 复习 */
+const lab=t=>t.replace(/\//g,'');
+function wrongV(){const ws=Object.values(D.wrong).sort((a,b)=>b.cnt-a.cnt);
+V(()=>`<div class="qh"><button class="chipb" onclick="nav('me')">⬅ 返回</button></div><h2>📕 错题本</h2>`+(ws.length?`<button class="btn" onclick="wrongPractice()">💪 练习错题</button><p class="hint">答对 2 次，题目就会毕业离开错题本 🎓</p>`+ws.map(w=>`<div class="li"><b>${MD[w.m]?MD[w.m][0]:'❓'}</b><span>${lab(w.t)} <small>· ${MD[w.m]?MD[w.m][1]:''}</small></span><span style="flex:none">${w.cnt>=3?'🚩 多复习哦':'错 '+w.cnt+' 次'}</span></div>`).join(''):`<div class="big"><div class="pic">🎉</div><h2>目前没有错题，你真棒！</h2></div>`))}
+function wrongPractice(){const l=Object.values(D.wrong).filter(w=>G[w.m]).sort((a,b)=>b.cnt-a.cnt).slice(0,5).map(w=>({m:w.m,t:w.t}));l.length?play('review',l):toast('错题都是不能重做的类型，先去练一练吧')}
+function reviewStart(){const l=Object.values(D.wrong).filter(w=>G[w.m]).sort((a,b)=>b.cnt-a.cnt).slice(0,3).map(w=>({m:w.m,t:w.t})),sn=Object.keys(D.seen).filter(c=>byC[c]);let n=0;
+while(l.length<5&&sn.length&&n++<40){const c=rnd(sn),ok=['listen','pic','stroke','cat','sclass'].filter(m=>m=='pic'?E[c]:(m=='stroke'||m=='sclass')?SK[c]:m=='cat'?CAT.includes(c):1);l.push({m:rnd(ok),t:c})}
+l.length?play('review',l):toast('先去「学一学」认几个字，再来复习吧～')}
+/* 学习总结 */
+function sumV(){const n=sumP=='day'?1:sumP=='week'?7:30,ag={};let tot=0,cor=0,days=0;
+for(let i=0;i<n;i++){const l=D.log[new Date(Date.now()-i*864e5).toLocaleDateString('sv')];if(!l)continue;let dn=0;for(const m in l){const a=ag[m]=ag[m]||[0,0];a[0]+=l[m][0];a[1]+=l[m][1];tot+=l[m][0];cor+=l[m][1];dn+=l[m][0]}if(dn)days++}
+const good=Object.entries(ag).filter(([m,a])=>a[0]>=3&&a[1]/a[0]>=.8&&MD[m]).sort((a,b)=>b[1][1]/b[1][0]-a[1][1]/a[1][0]),weak=Object.entries(ag).filter(([m,a])=>a[0]>=3&&a[1]/a[0]<.7&&MD[m]),wc=Object.values(D.wrong).sort((a,b)=>b.cnt-a.cnt).slice(0,5).map(w=>lab(w.t));
+const pr=[];if(tot)pr.push(`这段时间一共答了 ${tot} 题，答对 ${cor} 题，真不错！`);if(days>=2||(sumP=='day'&&days))pr.push(`坚持练习了 ${days} 天，坚持的小朋友最闪亮！✨`);good.slice(0,2).forEach(([m,a])=>pr.push(`你在「${MD[m][1]}」特别棒，正确率 ${Math.round(a[1]/a[0]*100)}%！`));
+const wk=weak.map(([m,a])=>`「${MD[m][1]}」还有一点点小挑战（正确率 ${Math.round(a[1]/a[0]*100)}%），多练几次一定会更棒！`);if(wc.length)wk.push(`这几个小题想再和你玩一玩：${wc.join('、')}，去「复习」里找它们吧～`);
+V(()=>`<div class="qh"><button class="chipb" onclick="nav('me')">⬅ 返回</button></div><h2>🏅 学习总结</h2><div class="tabs">${[['day','今天'],['week','本周'],['month','本月']].map(([k,l])=>`<button class="chipb ${k==sumP?'on':''}" onclick="sumP='${k}';sumV()">${l}</button>`).join('')}</div>
+<div class="panel">${tot?`<h3>🌟 你做得很棒的地方</h3>${pr.map(x=>`<p>${x}</p>`).join('')}${wk.length?`<h3>🌱 可以再加油的地方</h3>${wk.map(x=>`<p>${x}</p>`).join('')}<p>慢慢来，每天进步一点点，你已经很了不起啦！</p>`:'<p>目前没有薄弱的地方，继续保持！</p>'}`:`<p>这段时间还没有练习记录，来闯一关吧，迈出第一步就是最勇敢的！🌱</p>`}</div>`)}
+/* ===== 设置 / 家长模式 ===== */
+function pin(){const p=D.cfg.pin;if(!p){const n=prompt('首次使用，请家长设置4位数字密码');if(n&&/^\d{4}$/.test(n)){D.cfg.pin=n;save();pOpen=1}else toast('密码需要是4位数字')}else if(prompt('请输入家长密码')==p)pOpen=1;else toast('密码不对哦');setV()}
+const setCfg=(k,v)=>{D.cfg[k]=+v;save()};
+function setV(){const mn=Math.round((D.use[day()]||0)/60);
+V(()=>`<h2>⚙️ 设置</h2><div class="panel"><h3>🔊 朗读方式</h3>${[['auto','自动（推荐）'],['offline','离线录音优先'],['system','手机自带朗读'],['online','在线真人音（逐词）']].map(([k,l])=>`<label class="rd"><input type="radio" name="tts" ${D.cfg.tts==k?'checked':''} onchange="D.cfg.tts='${k}';save()">${l}</label>`).join('')}<p class="hint">自动：苹果手机先用自带朗读，失败再用离线录音；华为等其他手机先用离线录音（整句），没有再用在线逐词真人音，最后才用自带朗读。</p><button class="btn" style="font-size:20px" onclick="say(PROMPTS[8])">🔊 声音测试</button></div>
+<div class="panel"><h3>👨‍👩‍👧 家长模式</h3>${pOpen?`<p>今天已学习 <b>${mn}</b> 分钟</p><p>每日时长上限 <select onchange="setCfg('limit',this.value)">${[[0,'不限制'],[20,'20分钟'],[30,'30分钟'],[45,'45分钟'],[60,'60分钟']].map(([v,l])=>`<option value="${v}" ${D.cfg.limit==v?'selected':''}>${l}</option>`).join('')}</select></p><p>休息提醒间隔 <select onchange="setCfg('remind',this.value)">${[[0,'关闭'],[15,'15分钟'],[20,'20分钟'],[30,'30分钟']].map(([v,l])=>`<option value="${v}" ${D.cfg.remind==v?'selected':''}>${l}</option>`).join('')}</select></p><div class="row" style="justify-content:flex-start"><button class="chipb" onclick="const n=prompt('新的4位数字密码');if(/^\\d{4}$/.test(n||'')){D.cfg.pin=n;save();toast('密码已修改')}">修改密码</button><button class="chipb" onclick="if(confirm('确定清空所有学习记录吗？')){localStorage.removeItem('xz_v3');location.reload()}">清空记录</button></div>`:`<p class="hint">可设置每日使用时长、休息提醒间隔。</p><button class="btn" style="font-size:20px" onclick="pin()">进入家长模式</button>`}</div>
+<p class="hint">${NAME} v3 · 2026-10-13 · 笔顺动画与在线读音需要联网</p>`)}
+/* ===== 休息提醒 / 时长限制 ===== */
+let sess=0,resting=0,locked=0;const ov=h=>{const o=$('#ov');o.hidden=!h;o.innerHTML=h};
+function rest(){resting=1;stopAll();let s=60;ov(`<div class="oc"><div class="pic">😴</div><h2>大脑说累了，眼睛也需要放松啦～</h2><p>休息一会儿吧，看看远处的绿色，伸伸懒腰！</p><button class="btn" id="rb" disabled>休息 ${s} 秒</button></div>`);say(PROMPTS[9]);
+const iv=setInterval(()=>{const b=$('#rb');if(!b)return clearInterval(iv);if(--s>0)b.textContent=`休息 ${s} 秒`;else{clearInterval(iv);b.disabled=false;b.textContent='我休息好啦！';b.onclick=()=>{ov('');sess=0;resting=0}}},1000)}
+function lock(){locked=1;stopAll();ov(`<div class="oc"><div class="pic">🌙</div><h2>今天的学习时间到啦，明天见！</h2><button class="btn" onclick="unlock()">家长解锁</button></div>`);say(PROMPTS[10])}
+function unlock(){if(prompt('请输入家长密码')==D.cfg.pin){const d=day();D.ext[d]=(D.ext[d]||0)+900;save();ov('');locked=0}else toast('密码不对哦')}
+setInterval(()=>{if(document.hidden||resting||locked)return;sess++;const d=day();D.use[d]=(D.use[d]||0)+1;if(sess%30==0)save();
+if(D.cfg.limit&&D.use[d]>=D.cfg.limit*60+(D.ext[d]||0))lock();else if(D.cfg.remind&&sess>=D.cfg.remind*60)rest()},1000);
+/* ===== 启动 ===== */
+$('#bd').innerHTML=$('#bd2').innerHTML=ICON+`<span>${NAME}</span>`;
+{const k=document.createElement('link');k.rel='icon';k.href='data:image/svg+xml,'+encodeURIComponent(ICON);document.head.appendChild(k)}
+try{speechSynthesis.getVoices()}catch(e){}
+refSt();nav('home');
+</script></body></html>
